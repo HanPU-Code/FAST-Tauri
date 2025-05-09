@@ -101,4 +101,17 @@ This revised architecture successfully bypasses the Vite module resolution issue
 *   Add and integrate a Svelte frontend project.
 *   Manage shared packages (utilizing a `packages/` directory).
 *   Explore more advanced Tauri features (menus, state management, filesystem access, etc.).
-*   Test final distribution builds. 
+*   Test final distribution builds.
+
+  ## Acknowledgements / References
+
+This project was developed by referencing the following a
+rchitectures and examples:
+
+*   **example-tauri-v2-python-server-sidecar by @dieharders:**
+    *   [https://github.com/dieharders/example-tauri-v2-python-server-sidecar](https://github.com/dieharders/example-tauri-v2-python-server-sidecar)
+    *   This repository provided a valuable example of a Tauri v2 application bundling a Next.js frontend with a Python API server as a sidecar, demonstrating key concepts for sidecar management and communication.
+
+*   **monotron by @changjoon-park:**
+    *   [https://github.com/changjoon-park/monotron](https://github.com/changjoon-park/monotron)
+    *   This project served as an inspiration or a reference point (details of reference can be added if specific aspects were used).
