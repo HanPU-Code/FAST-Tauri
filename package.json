@@ -1,0 +1,20 @@
+{
+  "name": "fasttauri",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend:venv": "python -m venv apps/backend-fastapi/.venv",
+    "backend:install": "call apps\\\\backend-fastapi\\\\.venv\\\\Scripts\\\\python.exe -m pip install -r apps/backend-fastapi/requirements.txt",
+    "backend:dev": "call apps\\\\backend-fastapi\\\\.venv\\\\Scripts\\\\uvicorn.exe main:app --reload --app-dir apps/backend-fastapi",
+    "backend:build": "call apps\\\\backend-fastapi\\\\.venv\\\\Scripts\\\\pyinstaller.exe --noconfirm --onefile --noconsole apps/backend-fastapi/main.py --distpath apps/backend-fastapi/dist --workpath apps/backend-fastapi/build",
+    "frontend-react:install": "pnpm --prefix ./apps/frontend-react install",
+    "frontend-react:dev": "pnpm --prefix ./apps/frontend-react tauri dev",
+    "copy-sidecar:react": "copy /Y .\\apps\\backend-fastapi\\dist\\main.exe .\\apps\\frontend-react\\src-tauri\\bin\\api\\api-x86_64-pc-windows-msvc.exe"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.10.0"
+}
