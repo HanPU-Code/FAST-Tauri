@@ -84,9 +84,16 @@ This approach establishes a direct and efficient communication channel between t
 *   Explore more advanced Tauri features (menus, state management, filesystem access, etc.).
 *   Test final distribution builds.
 
+<<<<<<< HEAD
 ## Acknowledgements / References
 
 This project was developed by referencing the following architectures and examples:
+=======
+  ## Acknowledgements / References
+
+This project was developed by referencing the following a
+rchitectures and examples:
+>>>>>>> cddb75745ee255d63a744c6908a7aefc88a4a88f
 
 *   **example-tauri-v2-python-server-sidecar by @dieharders:**
     *   [https://github.com/dieharders/example-tauri-v2-python-server-sidecar](https://github.com/dieharders/example-tauri-v2-python-server-sidecar)
@@ -94,4 +101,8 @@ This project was developed by referencing the following architectures and exampl
 
 *   **monotron by @changjoon-park:**
     *   [https://github.com/changjoon-park/monotron](https://github.com/changjoon-park/monotron)
+<<<<<<< HEAD
     *   This project served as an additional reference for structuring and implementing Tauri applications with various backends. 
+=======
+    *   This project served as an inspiration or a reference point (details of reference can be added if specific aspects were used).
+>>>>>>> cddb75745ee255d63a744c6908a7aefc88a4a88f
