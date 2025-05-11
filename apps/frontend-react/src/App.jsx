@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event"; // For listening to backend events
+import api from "./utils/api"; // API 유틸리티 가져오기
 import "./App.css";
 
 function App() {
@@ -12,6 +13,10 @@ function App() {
   const [serverStatus, setServerStatus] = useState("Not Running");
   const [apiResponse, setApiResponse] = useState("");
   const [sidecarLogs, setSidecarLogs] = useState([]);
+  
+  // 새 API 테스트를 위한 상태
+  const [customEndpoint, setCustomEndpoint] = useState("/api/status");
+  const [customResponse, setCustomResponse] = useState("");
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -41,30 +46,36 @@ function App() {
   };
 
   const fetchApiStatus = async () => {
-    // 서버 상태 체크 (Rust 로그 기반 또는 단순화된 체크)
+    // 서버 상태 체크
     if (!serverStatus.toLowerCase().includes("running") && !serverStatus.toLowerCase().startsWith("start command sent")) {
         setApiResponse("Server may not be running. Try starting it or check logs.");
         return;
     }
     try {
-      setApiResponse("Fetching API status via Rust...");
-      const responseText = await invoke("make_http_request", { // Rust 커맨드 호출
-        url: "http://127.0.0.1:4040/api/status",
-        options: { method: "GET" } // 필요에 따라 options 전달
-      });
-      // Rust에서 문자열로 반환하므로, JSON.parse 필요
-      try {
-        const data = JSON.parse(responseText);
-        setApiResponse(`API Status (from Rust): ${JSON.stringify(data)}`);
-        if (data.status === "Backend is running") {
-            setServerStatus("Running (verified by API via Rust)");
-        }
-      } catch (parseError) {
-        setApiResponse(`Failed to parse API response from Rust: ${parseError} (Raw: ${responseText})`);
+      setApiResponse("Checking API status...");
+      // API 유틸리티 사용
+      const response = await api.getStatus();
+      setApiResponse(`API Status: ${JSON.stringify(response.data)}`);
+      if (response.data.status === "Backend is running") {
+          setServerStatus("running");
       }
     } catch (e) {
-      setApiResponse(`Failed to invoke API via Rust: ${e}`);
-      // setServerStatus("Running (API call via Rust failed)"); // API 호출 실패 시 상태를 어떻게 할지 결정
+      setApiResponse(`API call failed: ${e.message}`);
+    }
+  };
+
+  const makeCustomRequest = async () => {
+    if (!serverStatus.toLowerCase().includes("running")) {
+      setCustomResponse("Server is not running. Please start it first.");
+      return;
+    }
+    
+    try {
+      setCustomResponse("Processing request...");
+      const response = await api.get(customEndpoint);
+      setCustomResponse(`Response: ${JSON.stringify(response.data)}`);
+    } catch (e) {
+      setCustomResponse(`Request failed: ${e.message}`);
     }
   };
 
@@ -149,6 +160,20 @@ function App() {
           <p key={index} style={{ margin: '2px 0', fontSize: '0.9em', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{log}</p>
         ))}
       </div>
+
+      <hr />
+      <h2>Direct API Call Test</h2>
+      <div className="row">
+        <input
+          value={customEndpoint}
+          onChange={(e) => setCustomEndpoint(e.target.value)}
+          placeholder="API endpoint (e.g., /api/status)"
+        />
+        <button onClick={makeCustomRequest}>
+          Call API
+        </button>
+      </div>
+      <p>Response: {customResponse}</p>
     </main>
   );
 }

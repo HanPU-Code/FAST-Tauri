@@ -5,63 +5,6 @@ use std::sync::{Arc, Mutex};
 use tauri::{Emitter, Manager, RunEvent};
 use tauri_plugin_shell::process::{CommandChild, CommandEvent};
 use tauri_plugin_shell::ShellExt;
-use tauri_plugin_http;
-use serde::Deserialize;
-
-#[derive(Deserialize, Debug)] // For deserializing options from JS
-struct HttpRequestOptions {
-    method: Option<String>,
-    // body: Option<String>, // Add if you need to send bodies
-    // headers: Option<std::collections::HashMap<String, String>>, // Add for custom headers
-}
-
-#[tauri::command]
-async fn make_http_request(url: String, options: Option<HttpRequestOptions>) -> Result<String, String> {
-    println!("[tauri] Received make_http_request for URL: {}", url);
-    if let Some(opts) = &options {
-        println!("[tauri] With options: {:?}", opts);
-    }
-
-    let client = reqwest::Client::new();
-    let method = match options.as_ref().and_then(|o| o.method.as_deref()) {
-        Some("POST") => reqwest::Method::POST,
-        Some("PUT") => reqwest::Method::PUT,
-        Some("DELETE") => reqwest::Method::DELETE,
-        // Add other methods as needed
-        _ => reqwest::Method::GET, // Default to GET
-    };
-
-    let mut request_builder = client.request(method, &url);
-
-    // Example for adding body and headers if you extend HttpRequestOptions
-    // if let Some(opts) = options {
-    //     if let Some(body_str) = opts.body {
-    //         request_builder = request_builder.body(body_str);
-    //     }
-    //     if let Some(headers_map) = opts.headers {
-    //         for (key, value) in headers_map {
-    //             request_builder = request_builder.header(&key, &value);
-    //         }
-    //     }
-    // }
-
-    match request_builder.send().await {
-        Ok(response) => {
-            let status = response.status();
-            match response.text().await {
-                Ok(text) => {
-                    if status.is_success() {
-                        Ok(text)
-                    } else {
-                        Err(format!("HTTP Error: {} - {}", status, text))
-                    }
-                }
-                Err(e) => Err(format!("Failed to get response text: {} (Status: {})", e, status)),
-            }
-        }
-        Err(e) => Err(format!("Failed to send request: {}", e)),
-    }
-}
 
 #[tauri::command]
 fn toggle_fullscreen(window: tauri::Window) {
@@ -180,7 +123,6 @@ fn main() {
     tauri::Builder::default()
         // Add any necessary plugins
         .plugin(tauri_plugin_shell::init())
-        .plugin(tauri_plugin_http::init())
         .setup(|app| {
             // Store the initial sidecar process in the app state
             app.manage(Arc::new(Mutex::new(None::<CommandChild>)));
@@ -197,8 +139,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             start_sidecar,
             shutdown_sidecar,
-            toggle_fullscreen,
-            make_http_request
+            toggle_fullscreen
         ])
         .build(tauri::generate_context!())
         .expect("Error while running tauri application")
