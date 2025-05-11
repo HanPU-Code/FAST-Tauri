@@ -1,0 +1,26 @@
+{
+  "..\\node_modules\\.pnpm\\next@15.3.2_react-dom@19.1.0_react@19.1.0__react@19.1.0\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
+    "id": "..\\node_modules\\.pnpm\\next@15.3.2_react-dom@19.1.0_react@19.1.0__react@19.1.0\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_next_15_3_2_react-dom_19_1_0_react_19_1_0__react_19_1_0_-21e851.js"
+    ]
+  },
+  "..\\node_modules\\.pnpm\\next@15.3.2_react-dom@19.1.0_react@19.1.0__react@19.1.0\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
+    "id": "..\\node_modules\\.pnpm\\next@15.3.2_react-dom@19.1.0_react@19.1.0__react@19.1.0\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_next_15_3_2_react-dom_19_1_0_react_19_1_0__react_19_1_0_-f8fc11.js"
+    ]
+  },
+  "pages\\index.js -> @tauri-apps/api/core": {
+    "id": "pages\\index.js -> @tauri-apps/api/core",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_tauri-apps_api_2_5_0_node_modules_tauri-apps_api_core_js.js"
+    ]
+  },
+  "pages\\index.js -> @tauri-apps/api/event": {
+    "id": "pages\\index.js -> @tauri-apps/api/event",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_tauri-apps_api_2_5_0_node_modules_tauri-apps_api_event_js.js"
+    ]
+  }
+}

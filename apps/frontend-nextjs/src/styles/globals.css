@@ -1,0 +1,79 @@
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+.container {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+input, button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+input {
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0058c7;
+}
+
+h1, h2, h3 {
+  margin-bottom: 1rem;
+}
+
+hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid #eaeaea;
+}
+
+.logs {
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #f9f9f9;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.logs p {
+  margin: 2px 0;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+  word-break: break-all;
+} 
